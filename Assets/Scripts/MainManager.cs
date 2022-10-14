@@ -18,8 +18,7 @@ public class MainManager : MonoBehaviour
     
     private bool m_GameOver = false;
 
-    
-    // Start is called before the first frame update
+    //Instanciate the Bricks in linees and adds a point value to them
     void Start()
     {
         const float step = 0.6f;
@@ -40,6 +39,7 @@ public class MainManager : MonoBehaviour
 
     private void Update()
     {
+        //Starts the Game with space if it didnt start yet
         if (!m_Started)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -53,6 +53,7 @@ public class MainManager : MonoBehaviour
                 Ball.AddForce(forceDir * 2.0f, ForceMode.VelocityChange);
             }
         }
+        //Reloads the game with space when gameover
         else if (m_GameOver)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -61,13 +62,13 @@ public class MainManager : MonoBehaviour
             }
         }
     }
-
+    //Adds Points and displays them
     void AddPoint(int point)
     {
         m_Points += point;
         ScoreText.text = $"Score : {m_Points}";
     }
-
+    //Displays gameover text
     public void GameOver()
     {
         m_GameOver = true;
