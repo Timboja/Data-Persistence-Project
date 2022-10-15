@@ -60,6 +60,10 @@ public class MainManager : MonoBehaviour
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
+            else if (Input.GetKeyDown(KeyCode.M))
+            {
+                SceneManager.LoadScene(0);
+            }
         }
     }
     //Adds Points and displays them
