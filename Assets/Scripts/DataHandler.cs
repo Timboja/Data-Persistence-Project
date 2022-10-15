@@ -6,9 +6,8 @@ using TMPro;
 public class DataHandler : MonoBehaviour
 {
     public static DataHandler Instance;
-    public TMP_InputField nameInputField;
 
-    public string playername;
+    public string DHPlayername;
 
     private void Awake()
     {
@@ -20,11 +19,5 @@ public class DataHandler : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-    }
-
-    public void SetplayerName()
-    {
-        playername = nameInputField.text;
-        Debug.Log(playername);
     }
 }

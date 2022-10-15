@@ -7,10 +7,15 @@ using TMPro;
 
 public class UIHandler : MonoBehaviour
 {
+    public string UI_playerName;
 
-    public TextMeshProUGUI displayName;
+    public TMP_InputField nameInputField;
 
-
+    public void SubmitButton()
+    {
+        UI_playerName = nameInputField.text;
+        DataHandler.Instance.DHPlayername = UI_playerName;
+    }
     public void StartButton()
     {
         SceneManager.LoadScene(1);
