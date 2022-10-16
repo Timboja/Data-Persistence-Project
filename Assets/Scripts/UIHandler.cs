@@ -10,11 +10,17 @@ public class UIHandler : MonoBehaviour
     public string UI_playerName;
 
     public TMP_InputField nameInputField;
+    public TextMeshProUGUI Highscore;
+
+    public void Start()
+    {
+        Highscore.text = DataHandler.Instance.playerNameHighscore + " " + DataHandler.Instance.playerPointHighscore;
+    }
 
     public void SubmitButton()
     {
         UI_playerName = nameInputField.text;
-        DataHandler.Instance.DHPlayername = UI_playerName;
+        DataHandler.Instance.activePlayerName = UI_playerName;
     }
     public void StartButton()
     {

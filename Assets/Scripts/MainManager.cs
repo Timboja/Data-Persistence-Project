@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public class MainManager : MonoBehaviour
 {
-    public Brick BrickPrefab;
-    public int LineCount = 6;
+    public Brick brickPrefab;
+    public int lineCount = 6;
     public Rigidbody Ball;
 
-    public Text ScoreText;
-    public Text BestScoreText;
-    public GameObject GameOverText;
+    public Text scoreText;
+    public Text bestScoreText;
+    public GameObject gameOverText;
     
     private bool m_Started = false;
     private int m_Points;
@@ -22,16 +22,18 @@ public class MainManager : MonoBehaviour
     //Instanciate the Bricks in linees and adds a point value to them
     void Start()
     {
+        bestScoreText.text = $"Best Score : {DataHandler.Instance.playerPointHighscore} {DataHandler.Instance.playerNameHighscore}";
+
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
         int[] pointCountArray = new [] {1,1,2,2,5,5};
-        for (int i = 0; i < LineCount; ++i)
+        for (int i = 0; i < lineCount; ++i)
         {
             for (int x = 0; x < perLine; ++x)
             {
                 Vector3 position = new Vector3(-1.5f + step * x, 2.5f + i * 0.3f, 0);
-                var brick = Instantiate(BrickPrefab, position, Quaternion.identity);
+                var brick = Instantiate(brickPrefab, position, Quaternion.identity);
                 brick.PointValue = pointCountArray[i];
                 brick.onDestroyed.AddListener(AddPoint);
             }
@@ -57,6 +59,13 @@ public class MainManager : MonoBehaviour
         //Reloads the game with space when gameover
         else if (m_GameOver)
         {
+            if (m_Points >= DataHandler.Instance.playerPointHighscore)
+            {
+                DataHandler.Instance.playerPointHighscore = m_Points;
+                DataHandler.Instance.playerNameHighscore = DataHandler.Instance.activePlayerName;
+            }
+            bestScoreText.text = $"Best Score : {DataHandler.Instance.playerPointHighscore} {DataHandler.Instance.playerNameHighscore}";
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -71,13 +80,12 @@ public class MainManager : MonoBehaviour
     void AddPoint(int point)
     {
         m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
-        BestScoreText.text = $"Best Score : {DataHandler.Instance.DHPlayername} {m_Points}";
+        scoreText.text = $"Score : {m_Points}";
     }
     //Displays gameover text
     public void GameOver()
     {
         m_GameOver = true;
-        GameOverText.SetActive(true);
+        gameOverText.SetActive(true);
     }
 }
