@@ -14,6 +14,7 @@ public class UIHandler : MonoBehaviour
 
     public void Start()
     {
+        DataHandler.Instance.LoadScore();
         Highscore.text = DataHandler.Instance.playerNameHighscore + " " + DataHandler.Instance.playerPointHighscore;
     }
 

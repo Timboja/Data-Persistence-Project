@@ -64,7 +64,10 @@ public class MainManager : MonoBehaviour
                 DataHandler.Instance.playerPointHighscore = m_Points;
                 DataHandler.Instance.playerNameHighscore = DataHandler.Instance.activePlayerName;
             }
+
             bestScoreText.text = $"Best Score : {DataHandler.Instance.playerPointHighscore} {DataHandler.Instance.playerNameHighscore}";
+            //Save the score to Jason
+            DataHandler.Instance.SaveScore();
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
